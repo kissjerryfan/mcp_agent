@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>多Agent股票分析系统</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
+    <script>
+        window.addEventListener('load', function() {
+            if (typeof marked !== 'undefined') {
+                console.log('marked.js 加载成功，版本:', marked.getDefaults ? 'v4+' : '可能是旧版本');
+            } else {
+                console.error('marked.js 加载失败');
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 多Agent股票分析系统</h1>
+            <div class="status-bar">
+                <div class="connection-info">
+                    <p>连接状态: <span id="status" class="status status-disconnected">未连接</span></p>
+                    <p>重连次数: <span id="reconnectCount">0</span>/3</p>
+                </div>
+                <div class="mode-info">
+                    <p>分析模式: <span id="currentMode" class="mode-indicator">多Agent并行分析</span></p>
+                    <button id="manualConnectBtn" onclick="manualConnect()" class="control-btn">手动连接</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="input-section">
+            <h3>股票分析查询</h3>
+            <div class="analysis-info">
+                <p>🔥 <strong>多Agent并行分析</strong> - 基本面、技术面、估值分析三个专业Agent同步工作，生成综合投资报告</p>
+            </div>
+            <div class="query-templates">
+                <button onclick="loadTemplate('茅台')" class="template-btn">茅台分析</button>
+                <button onclick="loadTemplate('比亚迪')" class="template-btn">比亚迪分析</button>
+                <button onclick="loadTemplate('海康威视')" class="template-btn">海康威视分析</button>
+                <button onclick="loadTemplate('宁德时代')" class="template-btn">宁德时代分析</button>
+            </div>
+            
+            <div class="input-form">
+                <div class="form-group">
+                    <label for="companyName">公司名称：</label>
+                    <input type="text" id="companyName" placeholder="请输入公司名称，如：贵州茅台" value="贵州茅台">
+                </div>
+                <div class="form-group">
+                    <label for="stockCode">股票代码：</label>
+                    <input type="text" id="stockCode" placeholder="请输入股票代码，如：sh.600519" value="sh.600519">
+                </div>
+            </div>
+            
+            <div class="analysis-description">
+                <h4>分析内容说明：</h4>
+                <p>本系统将由以下三个专业Agent协作完成分析：</p>
+                <ul>
+                    <li><strong>基本面分析Agent</strong> - 分析财务状况、盈利能力、成长性等</li>
+                    <li><strong>技术分析Agent</strong> - 分析价格趋势、技术指标、支撑阻力位等</li>
+                    <li><strong>估值分析Agent</strong> - 分析估值指标、与行业对比、投资价值等</li>
+                </ul>
+                <p>最终将由汇总Agent整合三个专业分析，生成综合投资建议报告。</p>
+            </div>
+            
+            <div class="button-group">
+                <button id="executeBtn" onclick="executeAgent()">
+                    <span class="btn-text">开始多Agent分析</span>
+                </button>
+                <button id="downloadTxtBtn" onclick="downloadReportAsTxt()" disabled>
+                    <span class="btn-text">📝 下载TXT报告</span>
+                </button>
+                <button onclick="clearLogs()">清空日志</button>
+                <button onclick="exportLogs()">导出日志</button>
+            </div>
+        </div>
+        
+        <div class="output-section">
+            <h3>实时分析进度</h3>
+            <div class="log-controls">
+                <div class="control-left">
+                    <label>
+                        <input type="checkbox" id="autoScroll" checked> 自动滚动
+                    </label>
+                    <span class="log-count">日志数量: <span id="logCount">0</span></span>
+                </div>
+                <div class="control-right">
+                    <button onclick="clearLogs()" class="control-btn small">清空</button>
+                    <button onclick="connect()" class="control-btn small">重连</button>
+                </div>
+            </div>
+            <div id="logs" class="log-container"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html> 

@@ -400,8 +400,11 @@ ANALYSIS_CACHE_LIMIT = 500  # 分析结果缓存条目上限
 
 ### 一分钟体验回测功能
 ```bash
-# 运行预设演示 (贵州茅台 3个月超快速回测)
-python quick_backtest_demo.py
+# 启动回测系统 (Web界面)
+python start_backtest_system.py
+
+# 或直接运行命令行回测
+python backtest_system.py --stock_code sh.600519 --mode super_fast --period 3M
 ```
 
 ### 测试实时分析功能

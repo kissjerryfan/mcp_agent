@@ -68,9 +68,11 @@ API服务层 (FastAPI实时分析 + Flask回测服务)
 ### 1. 环境准备
 ```bash
 # 克隆项目
-git clone <repository-url>
+git clone [<repository-url>](https://github.com/kissjerryfan/mcp_agent.git)
 cd mcp_agent
+```
 
+```bash
 # 安装依赖  
 pip install -r requirements.txt
 ```
